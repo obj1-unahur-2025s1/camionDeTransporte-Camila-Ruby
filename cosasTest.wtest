@@ -2,8 +2,42 @@ import cosas.*
 
 describe "group of test for cosas" {
 
-  test "first test" {
-    assert.that(true)
+  test "Le cambio la cantidad de ladrillos al paquete, tiene esta cantidad y su peligrosidad es la misma que antes y su peso cambia" {
+    assert.equals(2, paqueteDeLadrillos.peligrosidad())//la peligrosidad siempre es 2
+    assert.equals(10,paqueteDeLadrillos.peso())// el peso con la cantidad inicial de ladrillos(5) es de 10
+
+    paqueteDeLadrillos.cantLadrillos(10)// le cambio la cantidad a 10 ladrillos
+    assert.equals(20, paqueteDeLadrillos.peso())// cambia el peso al doble
+    assert.equals(2, paqueteDeLadrillos.peligrosidad())// la peligrosidad sigue sin cambiar
   }
 
+  test "la bateria inicia con misiles, su peso es de 300 y su peligrosidad es de 100,
+  si descargo los misiles el peso es de 200 y la peligrosidad  de 0" {
+    assert.that(bateria.estaConMisiles())// inicia con los misiles cargados
+    assert.equals(300, bateria.peso())
+    assert.equals(100, bateria.peligrosidad())
+
+    bateria.descargarMisiles()//le sacamos los misiles
+
+    assert.equals(200, bateria.peso())// el peso cambia a 200
+    assert.equals(0, bateria.peligrosidad())// la peligrosidad cambia a 0
+  }
+
+  test "el contenedor inicia conteniendo nada, pesa 100 y tiene peligrosidad 0.
+  Le guardamos la bateria(con misiles),y el paquete con 5 ladrillos, entonces pesa 410 y su peligrosidad es de 102" {
+    assert.equals(100, contenedor.peso())
+    assert.equals(0, contenedor.peligrosidad())
+
+    contenedor.guardarCosa(bateria)
+    contenedor.guardarCosa(paqueteDeLadrillos)
+
+    assert.equals(410, contenedor.peso())
+    assert.equals(102, contenedor.peligrosidad())
+  }
+  test "Embalamos los residuos radioactivos con 30 kg. el embalaje pesa 30kg y su peligrosidad es de 100" {
+    residuosRadioactivos.peso(30)
+    embalaje.cosaEmbalada(residuosRadioactivos)
+    assert.equals(30, embalaje.peso())
+    assert.equals(100, embalaje.peligrosidad())
+  }
 }
